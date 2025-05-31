@@ -16,14 +16,14 @@ body::before {
   top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none; /* supaya gak ganggu interaksi */
   background-image: 
-    url('https://cdn-icons-png.flaticon.com/512/7091/7091502.png'),
-    url('https://cdn-icons-png.flaticon.com/512/7091/7091502.png'),
-    url('https://cdn-icons-png.flaticon.com/512/7091/7091502.png'),
-    url('https://cdn-icons-png.flaticon.com/512/7091/7091502.png');
+   url('https://cdn-icons-png.flaticon.com/512/7091/7091502.png'),
+        url('https://cdn-icons-png.flaticon.com/512/2950/2950215.png'),
+        url('https://cdn-icons-png.flaticon.com/512/8601/8601186.png'),
+        url('https://cdn-icons-png.flaticon.com/512/6794/6794639.png');
   background-repeat: repeat;
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px, 30px 30px, 45px 45px;
-  opacity: 0.2; /* rendah biar soft */
+  opacity: 0.3; /* rendah biar soft */
   z-index: -1;
 }
 
