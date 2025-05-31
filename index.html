@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scrapbook Birthday</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: url('https://i.imgur.com/lGJe4FC.jpg') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff4081;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      color: #d81b60;
+      padding: 20px;
+      background: #ffe0e9;
+      border: 4px dashed #ff80ab;
+      border-radius: 15px;
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn, .nav-buttons button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #ff80ab;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    .btn:hover, .nav-buttons button:hover {
+      background: #ff4081;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .loading {
+      font-size: 1.2rem;
+      color: #ff4081;
+      animation: scrapbook-spin 1.2s infinite;
+    }
+
+    @keyframes scrapbook-spin {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(3deg); }
+      100% { transform: rotate(-3deg); }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 15px;
+        border-radius: 15px;
+      }
+
+      .message {
+        font-size: 1rem;
+        min-height: 80px;
+      }
+
+      .btn, .nav-buttons button {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="app">
+  <div id="startScreen">
+    <h1>Happy Birthday, Sayang! 🎂💖</h1>
+    <button class="btn" onclick="startScrapbook()">Mulai</button>
+  </div>
+
+  <div id="loadingScreen" style="display: none;">
+    <div class="loading">Membuka Halaman Scrapbook... 📖✨</div>
+  </div>
+
+  <div id="scrapbook" style="display: none;">
+    <div class="message" id="pageMessage">Pesan 1</div>
+    <div class="nav-buttons">
+      <button onclick="prevPage()">⬅️ Sebelumnya</button>
+      <button onclick="nextPage()">Selanjutnya ➡️</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const messages = [
+    "Pesan 1: Selamat ulang tahun! 🎉",
+    "Pesan 2: Kamu sangat spesial 💖",
+    "Pesan 3: Terima kasih sudah hadir 🥹",
+    "Pesan 4: Setiap detik bersamamu berharga 💌",
+    "Pesan 5: Kamu membuat hidup lebih indah 🌸",
+    "Pesan 6: Tetap tersenyum dan bahagia 😊",
+    "Pesan 7: Kamu layak mendapatkan yang terbaik 💎",
+    "Pesan 8: Semoga harimu penuh cinta 💞",
+    "Pesan 9: Hari ini hanya untukmu 🧁",
+    "Pesan 10: Aku sayang kamu, selalu 💗"
+  ];
+
+  let currentPage = 0;
+
+  function startScrapbook() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('loadingScreen').style.display = 'block';
+
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('scrapbook').style.display = 'block';
+      updateMessage();
+    }, 2000);
+  }
+
+  function updateMessage() {
+    document.getElementById('pageMessage').innerText = messages[currentPage];
+  }
+
+  function prevPage() {
+    if (currentPage > 0) {
+      currentPage--;
+      updateMessage();
+    }
+  }
+
+  function nextPage() {
+    if (currentPage < messages.length - 1) {
+      currentPage++;
+      updateMessage();
+    }
+  }
+</script>
+
+</body>
+</html>
