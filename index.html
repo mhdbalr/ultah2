@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Scrapbook Birthday</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
@@ -15,7 +14,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Pacifico', cursive; 
+      font-family: 'Pacifico', cursive;
       background-size: cover;
       height: 100vh;
       display: flex;
@@ -63,7 +62,6 @@
       border: none;
       border-radius: 10px;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-
     }
 
     .btn:hover, .nav-buttons button:hover {
@@ -89,6 +87,82 @@
       100% { transform: rotate(-3deg); }
     }
 
+    .cute-animation {
+      font-size: 2rem;
+      animation: float 3s ease-in-out infinite;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Notifikasi Musik Cardboard Lucu */
+    #musicPrompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff0f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .music-card {
+      background: #ffe6f0;
+      border: 4px dashed #ff99cc;
+      border-radius: 25px;
+      padding: 30px 25px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 10px 25px rgba(255, 128, 171, 0.3);
+      animation: popIn 0.5s ease;
+    }
+
+    .music-card h2 {
+      color: #ff4081;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .music-card p {
+      font-size: 1.1rem;
+      color: #d81b60;
+      margin-bottom: 15px;
+    }
+
+    .music-card button {
+      background-color: #ff80ab;
+      border: none;
+      border-radius: 15px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      color: white;
+      font-family: 'Pacifico', cursive;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .music-card button:hover {
+      background-color: #ff4081;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 500px) {
       .container {
         padding: 15px;
@@ -109,70 +183,108 @@
 </head>
 <body>
 
-<div class="container" id="app">
-  <div id="startScreen">
-    <h1>Happy Birthday, Sayang! 🎂💖</h1>
-    <button class="btn" onclick="startScrapbook()">Mulai</button>
-  </div>
-
-  <div id="loadingScreen" style="display: none;">
-    <div class="loading">Membuka Halaman Scrapbook... 📖✨</div>
-  </div>
-
-  <div id="scrapbook" style="display: none;">
-    <div class="message" id="pageMessage">Pesan 1</div>
-    <div class="nav-buttons">
-      <button onclick="prevPage()">⬅️ Sebelumnya</button>
-      <button onclick="nextPage()">Selanjutnya ➡️</button>
+  <!-- Notifikasi Musik -->
+  <div id="musicPrompt">
+    <div class="music-card">
+      <h2>🎶 Nyalakan musik &lt;3 </h2>
+      <p>Kakak pilihin lagunya karna suka, tapi lebih besar rasa suka kakak ke kamu sii hehe</p>
+      <button onclick="startWithMusic()">Iya sayang 💕</button>
     </div>
   </div>
-</div>
 
-<script>
-  const messages = [
-    "Pesan 1: Selamat ulang tahun! 🎉",
-    "Pesan 2: Kamu sangat spesial 💖",
-    "Pesan 3: Terima kasih sudah hadir 🥹",
-    "Pesan 4: Setiap detik bersamamu berharga 💌",
-    "Pesan 5: Kamu membuat hidup lebih indah 🌸",
-    "Pesan 6: Tetap tersenyum dan bahagia 😊",
-    "Pesan 7: Kamu layak mendapatkan yang terbaik 💎",
-    "Pesan 8: Semoga harimu penuh cinta 💞",
-    "Pesan 9: Hari ini hanya untukmu 🧁",
-    "Pesan 10: Aku sayang kamu, selalu 💗"
-  ];
+  <!-- Splash Screen -->
+  <div id="splashScreen" class="splash" style="display: none;">
+    <div class="splash-content" onclick="startScrapbookFromSplash()">
+      <h1>🎉 Selamat Ulang Tahun, Sayang! 🎂</h1>
+      <div class="gift-icon">🎁</div>
+      <p>Buka kotak hadiahnya yaa~ 💝</p>
+    </div>
+  </div>
 
-  let currentPage = 0;
+  <!-- Scrapbook -->
+  <div class="container" id="app">
+    <div id="startScreen">
+      <h1>Happy Birthday, Sayang! 🎂💖</h1>
+      <button class="btn" onclick="startScrapbook()">Mulai</button>
+    </div>
 
-  function startScrapbook() {
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('loadingScreen').style.display = 'block';
+    <div id="loadingScreen" style="display: none;">
+      <div class="loading">Membuka Halaman Scrapbook... 📖✨</div>
+    </div>
 
-    setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('scrapbook').style.display = 'block';
-      updateMessage();
-    }, 2000);
-  }
+    <div id="scrapbook" style="display: none;">
+      <div class="cute-animation">ʕ•ᴥ•ʔ ❤️</div>
+      <div class="message" id="pageMessage">Pesan 1</div>
+      <div class="nav-buttons">
+        <button onclick="prevPage()">⬅️ Sebelumnya</button>
+        <button onclick="nextPage()">Selanjutnya ➡️</button>
+      </div>
+    </div>
+  </div>
 
-  function updateMessage() {
-    document.getElementById('pageMessage').innerText = messages[currentPage];
-  }
+  <!-- Musik -->
+  <audio id="bgMusic" src="jenifer.mp4" loop></audio>
 
-  function prevPage() {
-    if (currentPage > 0) {
-      currentPage--;
-      updateMessage();
+  <!-- JavaScript -->
+  <script>
+    const messages = [
+      "Happy Birthday🎉, My Favorite Person🥹💖",
+      "Pesan 2: Kamu sangat spesial 💖",
+      "Pesan 3: Terima kasih sudah hadir 🥹",
+      "Pesan 4: Setiap detik bersamamu berharga 💌",
+      "Pesan 5: Kamu membuat hidup lebih indah 🌸",
+      "Pesan 6: Tetap tersenyum dan bahagia 😊",
+      "Pesan 7: Kamu layak mendapatkan yang terbaik 💎",
+      "Pesan 8: Semoga harimu penuh cinta 💞",
+      "Pesan 9: Hari ini hanya untukmu 🧁",
+      "Pesan 10: Aku sayang kamu, selalu 💗",
+      "Pesan 11: Aku sayang kamu, selalu 💗",
+      "Pesan 12: Aku sayang kamu, selalu 💗"
+    ];
+
+    let currentPage = 0;
+
+    function startScrapbook() {
+      document.getElementById('startScreen').style.display = 'none';
+      document.getElementById('loadingScreen').style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('scrapbook').style.display = 'block';
+        updateMessage();
+      }, 2000);
     }
-  }
 
-  function nextPage() {
-    if (currentPage < messages.length - 1) {
-      currentPage++;
-      updateMessage();
+    function updateMessage() {
+      document.getElementById('pageMessage').innerText = messages[currentPage];
     }
-  }
-</script>
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        updateMessage();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < messages.length - 1) {
+        currentPage++;
+        updateMessage();
+      }
+    }
+
+    function startScrapbookFromSplash() {
+      document.getElementById('splashScreen').style.display = 'none';
+      startScrapbook();
+    }
+
+    function startWithMusic() {
+      const music = document.getElementById('bgMusic');
+      music.play();
+      document.getElementById('musicPrompt').style.display = 'none';
+      document.getElementById('splashScreen').style.display = 'flex';
+    }
+  </script>
 
 </body>
 </html>
