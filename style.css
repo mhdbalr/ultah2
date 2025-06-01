@@ -1,5 +1,4 @@
 body {
-  position: relative;
   margin: 0;
   padding: 0;
   font-family: 'Pacifico', cursive;
@@ -8,14 +7,12 @@ body {
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  background: linear-gradient(to bottom right, #ffe6f0, #ffffff); /* Gradasi pink muda ke putih */
+  background: linear-gradient(to bottom right, #ffe6f0, #ffffff);
 }
 
-/* Animasi jatuh emoji cinta, bunga, kue, boneka */
 .falling-animations {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -56,47 +53,91 @@ body {
   }
 }
 
-/* Splash screen */
-.splash {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(to bottom right, #ffc1e3, #fff0f5);
+/* Cake container */
+.cake-scene {
+  position: relative;
+  padding: 20px;
+  background: #ffe6f0;
+  border: 4px dashed #ff80ab;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px rgba(255, 128, 171, 0.3);
+}
+
+.cake {
+  position: relative;
+  margin: 0 auto;
+  width: 140px;
+}
+
+.tier {
+  background: #ff80ab;
+  border: 4px solid #fff0f7;
+  border-radius: 15px 15px 10px 10px;
+  margin: 0 auto;
+  animation: bounce 2s infinite ease-in-out;
+  box-shadow:
+    inset 0 4px 8px rgba(255, 255, 255, 0.6),
+    0 4px 10px rgba(255, 64, 129, 0.3);
+}
+
+.tier1 {
+  width: 140px;
+  height: 60px;
+  margin-top: 0;
+}
+
+.tier2 {
+  width: 90px;
+  height: 50px;
+  margin-top: -25px;
+}
+
+.tier3 {
+  width: 50px;
+  height: 40px;
+  margin-top: -20px;
+}
+
+/* Lilin */
+.candles {
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  transition: opacity 1s ease;
+  gap: 12px;
+  z-index: 10;
 }
 
-.splash-content {
-  text-align: center;
-  animation: fadeIn 2s ease-in-out;
-  cursor: pointer;
+.candle {
+  width: 12px;
+  height: 30px;
+  background: #fff5e6;
+  border-radius: 3px;
+  position: relative;
+  box-shadow: inset 0 0 5px #fddc8c;
 }
 
-.gift-icon {
-  font-size: 6rem;
-  animation: bounce 1.5s infinite;
-  transition: transform 0.3s;
+.flame {
+  width: 10px;
+  height: 14px;
+  background: radial-gradient(circle, #fff24b 0%, #ffec33 60%, #f90 90%, transparent 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: flicker 0.4s infinite alternate;
+  filter: drop-shadow(0 0 3px #ffda00);
 }
 
-.gift-icon:hover {
-  transform: scale(1.1);
-}
-
-.splash p {
-  font-size: 1.2rem;
-  color: #d81b60;
-  margin-top: 10px;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes flicker {
+  from { transform: translateX(-50%) scale(1); opacity: 1; }
+  to { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
