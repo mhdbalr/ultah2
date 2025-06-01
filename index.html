@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Scrapbook Birthday</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
 
   <style>
     * {
@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background: #fff0f7;
     }
 
     .container {
@@ -62,6 +63,7 @@
       border: none;
       border-radius: 10px;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      font-family: 'Pacifico', cursive;
     }
 
     .btn:hover, .nav-buttons button:hover {
@@ -119,9 +121,10 @@
       border-radius: 25px;
       padding: 30px 25px;
       text-align: center;
-      max-width: 300px;
+      max-width: 320px;
       box-shadow: 0 10px 25px rgba(255, 128, 171, 0.3);
       animation: popIn 0.5s ease;
+      font-family: 'Pacifico', cursive;
     }
 
     .music-card h2 {
@@ -143,7 +146,6 @@
       padding: 10px 24px;
       font-size: 1rem;
       color: white;
-      font-family: 'Pacifico', cursive;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
@@ -161,6 +163,31 @@
         transform: scale(1);
         opacity: 1;
       }
+    }
+
+    /* Splash screen styling */
+    #splashScreen {
+      position: fixed;
+      inset: 0;
+      background: #ffe6f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9998;
+      cursor: pointer;
+      transition: opacity 1s ease;
+    }
+
+    .splash-content {
+      text-align: center;
+      user-select: none;
+    }
+
+    .gift-icon {
+      font-size: 4rem;
+      margin: 15px 0;
+      animation: float 3s ease-in-out infinite;
     }
 
     @media (max-width: 500px) {
@@ -186,15 +213,15 @@
   <!-- Notifikasi Musik -->
   <div id="musicPrompt">
     <div class="music-card">
-      <h2>🎶 Nyalakan musik &lt;3 </h2>
+      <h2>🎶 Nyalakan musik &lt;3</h2>
       <p>Kakak pilihin lagunya karna suka, tapi lebih besar rasa suka kakak ke kamu sii hehe</p>
       <button onclick="startWithMusic()">Iya sayang 💕</button>
     </div>
   </div>
 
   <!-- Splash Screen -->
-  <div id="splashScreen" class="splash" style="display: none;">
-    <div class="splash-content" onclick="startScrapbookFromSplash()">
+  <div id="splashScreen" style="display: none;" onclick="startScrapbookFromSplash()">
+    <div class="splash-content">
       <h1>🎉 Selamat Ulang Tahun, Sayang! 🎂</h1>
       <div class="gift-icon">🎁</div>
       <p>Buka kotak hadiahnya yaa~ 💝</p>
@@ -203,11 +230,6 @@
 
   <!-- Scrapbook -->
   <div class="container" id="app">
-    <div id="startScreen">
-      <h1>Happy Birthday, Sayang! 🎂💖</h1>
-      <button class="btn" onclick="startScrapbook()">Mulai</button>
-    </div>
-
     <div id="loadingScreen" style="display: none;">
       <div class="loading">Membuka Halaman Scrapbook... 📖✨</div>
     </div>
@@ -225,7 +247,6 @@
   <!-- Musik -->
   <audio id="bgMusic" src="jenifer.mp4" loop></audio>
 
-  <!-- JavaScript -->
   <script>
     const messages = [
       "Happy Birthday🎉, My Favorite Person🥹💖",
@@ -243,17 +264,6 @@
     ];
 
     let currentPage = 0;
-
-    function startScrapbook() {
-      document.getElementById('startScreen').style.display = 'none';
-      document.getElementById('loadingScreen').style.display = 'block';
-
-      setTimeout(() => {
-        document.getElementById('loadingScreen').style.display = 'none';
-        document.getElementById('scrapbook').style.display = 'block';
-        updateMessage();
-      }, 2000);
-    }
 
     function updateMessage() {
       document.getElementById('pageMessage').innerText = messages[currentPage];
@@ -273,9 +283,23 @@
       }
     }
 
+    function startScrapbook() {
+      document.getElementById('loadingScreen').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('scrapbook').style.display = 'block';
+        updateMessage();
+      }, 2000);
+    }
+
     function startScrapbookFromSplash() {
-      document.getElementById('splashScreen').style.display = 'none';
-      startScrapbook();
+      const splash = document.getElementById('splashScreen');
+      splash.style.transition = 'opacity 1s ease';
+      splash.style.opacity = 0;
+      setTimeout(() => {
+        splash.style.display = 'none';
+        startScrapbook();
+      }, 1000);
     }
 
     function startWithMusic() {
@@ -283,6 +307,7 @@
       music.play();
       document.getElementById('musicPrompt').style.display = 'none';
       document.getElementById('splashScreen').style.display = 'flex';
+      document.getElementById('splashScreen').style.opacity = 1;
     }
   </script>
 
