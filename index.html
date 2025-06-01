@@ -299,28 +299,34 @@
         padding: 10px 18px;
       }
     }
- .shooting-star {
-  position: fixed;
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(-45deg, #5F91FF, transparent);
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  animation: shooting 1s ease-out forwards;
+.shooting-star {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 4px;
+  height: 10px;
+  background: linear-gradient(45deg, #FFD700, rgba(255, 215, 0, 0));
+  box-shadow: 0 0 8px #FFD700, 0 0 16px #FFD700;
+  transform: rotate(-45deg);
+  animation: shoot 2s linear infinite;
   opacity: 0.8;
+  z-index: 5;
 }
 
-@keyframes shooting {
+
+@keyframes shoot {
   0% {
     transform: translate(0, 0);
     opacity: 1;
   }
   100% {
-    transform: translate(-300px, 300px);
+    transform: translate(-100vw, 100vh); /* Menyilang ke pojok kiri bawah */
     opacity: 0;
   }
 }
+
+
+
 
 
   </style>
@@ -416,7 +422,7 @@
   }
 
   // Tampilkan bintang jatuh saat pesan ke-5 (indeks ke-4)
-  if (currentPage === 4) {
+  if (currentPage === 11) {
     showShootingStar();
   }
 }
@@ -509,7 +515,7 @@
 
 
   function showShootingStar() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     setTimeout(() => {
       const star = document.createElement('div');
       star.classList.add('shooting-star');
@@ -518,7 +524,7 @@
       document.body.appendChild(star);
       setTimeout(() => {
         star.remove();
-      }, 1000);
+      }, 10000);
     }, i * 400);
   }
 }
@@ -528,6 +534,10 @@ window.onload = function () {
 
 
 </script>
+<div class="shooting-star" id="shootingStar" style="display: none;"></div>
+<div id="cake-section">
+  <!-- Konten kue -->
+</div>
 
 </body>
 </html>
