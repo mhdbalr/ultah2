@@ -10,6 +10,7 @@ body {
   background: linear-gradient(to bottom right, #ffe6f0, #ffffff);
 }
 
+/* Container animasi */
 .falling-animations {
   position: fixed;
   top: 0; left: 0;
@@ -20,31 +21,36 @@ body {
   z-index: 999;
 }
 
-.heart, .flower, .cake, .bear {
-  position: absolute;
-  top: -60px;
-  font-size: 2.2rem;
-  animation: fall 6s linear infinite;
-  opacity: 0.85;
+/* ==== Efek Confetti ==== */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+.confetti-piece {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
 }
 
-.heart::before { content: "💖"; }
-.flower::before { content: "🌸"; }
-.cake::before { content: "🎂"; }
-.bear::before { content: "🧸"; }
+/* ==== Efek Bunga Jatuh ==== */
+.falling-flower {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  background-image: url('https://emoji.slack-edge.com/T02K1QQ4M/flower/9c540e435d5b781f.png');
+  background-size: cover;
+  animation: fall-flower 5s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-.heart      { left: 10%; animation-delay: 0s; }
-.flower     { left: 30%; animation-delay: 1s; }
-.heart.delay1  { left: 50%; animation-delay: 2s; }
-.flower.delay2 { left: 70%; animation-delay: 3s; }
-.heart.delay3  { left: 80%; animation-delay: 4s; }
-.flower.delay4 { left: 90%; animation-delay: 5s; }
-.cake          { left: 20%; animation-delay: 1.5s; }
-.bear.delay5   { left: 60%; animation-delay: 3.5s; }
-
-@keyframes fall {
+@keyframes fall-flower {
   0% {
-    transform: translateY(-60px) rotate(0deg);
+    transform: translateY(-50px) rotate(0deg);
     opacity: 1;
   }
   100% {
@@ -53,7 +59,46 @@ body {
   }
 }
 
-/* Cake container */
+/* ==== Efek Hati ==== */
+.heart {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: pink;
+  transform: rotate(45deg);
+  animation: floatHeart 4s ease-out forwards;
+  z-index: 9999;
+}
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: pink;
+  border-radius: 50%;
+}
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+
+/* ==== Kue Ulang Tahun ==== */
 .cake-scene {
   position: relative;
   padding: 20px;
@@ -63,13 +108,11 @@ body {
   margin-top: 20px;
   box-shadow: 0 8px 20px rgba(255, 128, 171, 0.3);
 }
-
 .cake {
   position: relative;
   margin: 0 auto;
   width: 140px;
 }
-
 .tier {
   background: #ff80ab;
   border: 4px solid #fff0f7;
@@ -80,19 +123,16 @@ body {
     inset 0 4px 8px rgba(255, 255, 255, 0.6),
     0 4px 10px rgba(255, 64, 129, 0.3);
 }
-
 .tier1 {
   width: 140px;
   height: 60px;
   margin-top: 0;
 }
-
 .tier2 {
   width: 90px;
   height: 50px;
   margin-top: -25px;
 }
-
 .tier3 {
   width: 50px;
   height: 40px;
@@ -109,7 +149,6 @@ body {
   gap: 12px;
   z-index: 10;
 }
-
 .candle {
   width: 12px;
   height: 30px;
@@ -118,7 +157,6 @@ body {
   position: relative;
   box-shadow: inset 0 0 5px #fddc8c;
 }
-
 .flame {
   width: 10px;
   height: 14px;
@@ -134,7 +172,7 @@ body {
 
 @keyframes flicker {
   from { transform: translateX(-50%) scale(1); opacity: 1; }
-  to { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+  to   { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
 }
 
 @keyframes bounce {

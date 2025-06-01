@@ -222,9 +222,9 @@
       border: 3px solid #fff0f7;
     }
 
-    .tier1 { width: 120px; height: 50px; }
+    .tier3 { width: 120px; height: 50px;margin-top: -15px; }
     .tier2 { width: 90px; height: 45px; margin-top: -15px; }
-    .tier3 { width: 60px; height: 40px; margin-top: -15px; }
+    .tier1 { width: 60px; height: 40px;  }
 
     .candles {
       position: absolute;
@@ -299,15 +299,41 @@
         padding: 10px 18px;
       }
     }
+ .shooting-star {
+  position: fixed;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(-45deg, #5F91FF, transparent);
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  animation: shooting 1s ease-out forwards;
+  opacity: 0.8;
+}
+
+@keyframes shooting {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-300px, 300px);
+    opacity: 0;
+  }
+}
+
+
   </style>
+  
 </head>
 <body>
+
 
   <div id="musicPrompt">
     <div class="music-card">
       <h2>🎶 Nyalakan musik &lt;3</h2>
-      <p>Kakak pilihin lagunya karna suka, tapi lebih besar rasa suka kakak ke kamu sii hehe</p>
-      <button onclick="startWithMusic()">Iya sayang 💕</button>
+      <p>Lagunya punya vibes yang kakak suka. Tapi kalau jeni, punya semua yang kakak cari😝</p>
+      <button onclick="startWithMusic()">Nyalain dong sayang 🥳</button>
     </div>
   </div>
 
@@ -348,7 +374,9 @@
     <div class="background-elements">
       🎈🌹🎀💝🍰✨🎊🎉
     </div>
-    <p class="final-message">Selamat Ulang Tahun, Sayangku! 🎂💖</p>
+    <p class="final-message">Selamat Ulang Tahun, Sayangnya kakak! 🎂💖</p>
+    <p class="final-message">will you be my girlfriend ? </p>
+    <p class="final-message">Dijawab nanti pas siang ini kita ketemu yaa</p>
   </div>
         
         </div>
@@ -362,27 +390,36 @@
   <script>
     const messages = [
       "Happy Birthday🎉, My Favorite Person🥹💖",
-      "Pesan 2: Kamu sangat spesial 💖",
-      "Pesan 3: Terima kasih sudah hadir 🥹",
-      "Pesan 4: Setiap detik bersamamu berharga 💌",
-      "Pesan 5: Kamu membuat hidup lebih indah 🌸",
-      "Pesan 6: Tetap tersenyum dan bahagia 😊",
-      "Pesan 7: Kamu layak mendapatkan yang terbaik 💎",
-      "Pesan 8: Semoga harimu penuh cinta 💞",
-      "Pesan 9: Hari ini hanya untukmu 🧁",
-      "Pesan 10: Aku sayang kamu, selalu 💗"
+      "Selamat ulang tahun yaa.... Terimakasih udah hadir ke dunia dan berbagi kebahagiaan hehe",
+      "Selamat menjadi manusia dewasa ya yang mana Jeni bakal ketemu banyak rintangan yang dihadapi",
+      "Jangan lupa ucapin makasi ke diri Jeni sendiri yang udah kuat sampai detik ini",
+      "Semoga semua harapan yang Jeni inginkan menjadi kenyataan",
+      "Kakak punya banyak harapan tau buat Jeni,,,",
+      "Kakak harap Jeni sembuh dari hal hal yang ngga pernah Jeni ceritain",
+      "Kakak harap Jeni sembuh dari maaf yang gapernah Jeni dapetin",
+      "Kakak harap hal hal baik terus datang ke Jeni, dan Jeni percaya kalo jeni emang pantes buat itu",
+      "Maaf ya yg kakak kasi bukan hadiah mewah, tapi kakak bisa si ngasinya asal selanjutnya nanti Jeni yg kerja soalnya ginjal kakak sisa satu hehe",
+      "Jenii juga bikin harapan yaa nih kakak kasi kue ultah sama confetti bintang jatuh, buruan bikin harapan ahaha"
     ];
 
     let currentPage = 0;
 
-    function updateMessage() {
-      document.getElementById('pageMessage').innerText = messages[currentPage];
-      if (currentPage === messages.length - 1) {
-        document.getElementById('cakeAnimation').style.display = 'block';
-      } else {
-        document.getElementById('cakeAnimation').style.display = 'none';
-      }
-    }
+   function updateMessage() {
+  document.getElementById('pageMessage').innerText = messages[currentPage];
+
+  if (currentPage === messages.length - 1) {
+    document.getElementById('cakeAnimation').style.display = 'block';
+    startConfetti();
+  } else {
+    document.getElementById('cakeAnimation').style.display = 'none';
+    stopConfetti();
+  }
+
+  // Tampilkan bintang jatuh saat pesan ke-5 (indeks ke-4)
+  if (currentPage === 4) {
+    showShootingStar();
+  }
+}
 
     function prevPage() {
       if (currentPage > 0) {
@@ -444,21 +481,25 @@
 
 <script>
   // Panggil ini di updateMessage kalau halaman terakhir
-  function startConfetti() {
-    const confettiContainer = document.getElementById('confettiContainer');
-    confettiContainer.innerHTML = '';
-    confettiContainer.style.display = 'block';
-    for (let i = 0; i < 100; i++) {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti-piece';
-      confetti.style.backgroundColor = ['#ff80ab', '#ff4081', '#f48fb1', '#fce4ec'][Math.floor(Math.random() * 4)];
-      confetti.style.left = Math.random() * 100 + 'vw';
-      confetti.style.top = Math.random() * -20 + 'vh'; // mulai agak di atas layar
-      confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
-      confetti.style.animationDelay = (Math.random() * 2) + 's';
-      confettiContainer.appendChild(confetti);
-    }
+ function startConfetti() {
+  const confettiContainer = document.getElementById('confettiContainer');
+  confettiContainer.innerHTML = '';
+  confettiContainer.style.display = 'block';
+
+  const emojis = ['🌸','⭐', '🎉', '✨' , '💝'];
+  for (let i = 0; i < 70; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti-piece';
+    confetti.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    confetti.style.fontSize = `${Math.random() * 16 + 14}px`;
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.top = Math.random() * -20 + 'vh';
+    confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+    confetti.style.animationDelay = Math.random() + 's';
+    confettiContainer.appendChild(confetti);
   }
+}
+
 
   function stopConfetti() {
     const confettiContainer = document.getElementById('confettiContainer');
@@ -466,17 +507,26 @@
     confettiContainer.innerHTML = '';
   }
 
-  // Modifikasi updateMessage supaya confetti jalan pas halaman terakhir
-  function updateMessage() {
-    document.getElementById('pageMessage').innerText = messages[currentPage];
-    if (currentPage === messages.length - 1) {
-      document.getElementById('cakeAnimation').style.display = 'block';
-      startConfetti();
-    } else {
-      document.getElementById('cakeAnimation').style.display = 'none';
-      stopConfetti();
-    }
+
+  function showShootingStar() {
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      const star = document.createElement('div');
+      star.classList.add('shooting-star');
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.top = `${Math.random() * window.innerHeight / 2}px`;
+      document.body.appendChild(star);
+      setTimeout(() => {
+        star.remove();
+      }, 1000);
+    }, i * 400);
   }
+}
+window.onload = function () {
+  showShootingStar();
+};
+
+
 </script>
 
 </body>
